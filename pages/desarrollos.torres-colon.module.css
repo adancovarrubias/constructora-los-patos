@@ -1,0 +1,101 @@
+.pageContainer {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.sectionText {
+  font-size: 1.125rem;
+  line-height: var(--line-height-relaxed);
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Models Section */
+.featuredModel {
+  margin-bottom: var(--spacing-12);
+}
+
+.featuredModelTitle {
+  font-family: var(--font-family-heading);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.modelsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-8);
+}
+
+/* Amenities Section */
+.amenitiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-8);
+  margin-top: var(--spacing-8);
+}
+
+.amenityItem {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.amenityIconWrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.amenityIcon {
+  color: var(--primary);
+}
+
+.amenityItem:hover .amenityIconWrapper {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.amenityTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* Premium Gallery Section */
+.premiumGallery {
+  margin-top: var(--spacing-4);
+}
+
+
+
+/* Error State */
+.errorState {
+  text-align: center;
+  padding: var(--spacing-8);
+}
+
+.errorState h2 {
+  font-family: var(--font-family-heading);
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-4);
+  color: var(--foreground);
+}
+
+.errorState p {
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-6);
+}

@@ -1,0 +1,74 @@
+/* Main floating button - positioned to avoid interference with mobile navigation */
+.floatButton {
+  position: fixed;
+  bottom: var(--spacing-8);
+  right: var(--spacing-8);
+  width: 3.75rem; /* 60px */
+  height: 3.75rem; /* 60px */
+  background-color: #25d366; /* Official WhatsApp brand green */
+  color: white;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-overlay); /* Above content but below modals */
+  cursor: pointer;
+  transition:
+    transform var(--animation-duration-normal) ease,
+    box-shadow var(--animation-duration-normal) ease;
+  /* Subtle pulse animation to draw attention without being intrusive */
+  animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+  text-decoration: none;
+}
+
+/* Hover state - pauses pulse and adds interactive feedback */
+.floatButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px hsla(145, 63%, 49%, 0.4); /* WhatsApp green shadow */
+  animation-play-state: paused; /* Stop pulsing on hover to reduce distraction */
+}
+
+/* Accessibility - keyboard navigation focus indicator */
+.floatButton:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px #25d366; /* WhatsApp green focus ring */
+}
+
+.icon {
+  width: 2rem; /* 32px */
+  height: 2rem; /* 32px */
+}
+
+/* Pulse animation - designed to be noticeable but not annoying */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: var(--shadow-lg);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px hsla(145, 63%, 49%, 0.2); /* Soft WhatsApp green glow */
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+/* Mobile optimization - smaller size and adjusted positioning to avoid thumb zones */
+@media (max-width: 768px) {
+  .floatButton {
+    width: 3.25rem; /* 52px - smaller for mobile screens */
+    height: 3.25rem; /* 52px */
+    bottom: var(--spacing-4); /* Closer to edge on mobile */
+    right: var(--spacing-4);
+  }
+
+  .icon {
+    width: 1.75rem; /* 28px - proportionally smaller icon */
+    height: 1.75rem; /* 28px */
+  }
+}

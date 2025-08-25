@@ -1,0 +1,342 @@
+/**
+ * SharedLayout Styles - Constructora Los Patos
+ * 
+ * RESPONSIVE BREAKPOINT STRATEGY:
+ * - Mobile: < 768px (primary focus for Mexican real estate market)
+ * - Tablet: 768px - 1024px (secondary optimization)
+ * - Desktop: > 1024px (enhanced experience)
+ * 
+ * UX DESIGN DECISIONS:
+ * - Mobile-first approach reflects user behavior in Mexican market
+ * - Sticky navigation ensures constant access to key conversion pages
+ * - Smooth animations enhance perceived performance and professionalism
+ */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+/**
+ * HEADER ARCHITECTURE:
+ * Sticky positioning with strategic z-index ensures navigation accessibility
+ * during scroll while preventing conflicts with page modals and overlays.
+ */
+.header {
+  background-color: var(--surface);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav-sticky);
+  border-bottom: 1px solid var(--border);
+}
+
+/**
+ * HEADER CONTENT LAYOUT:
+ * Flexbox layout provides optimal alignment between logo and navigation.
+ * Max-width constraint maintains readability on ultra-wide screens.
+ * Fixed height ensures consistent header dimensions across pages.
+ */
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-4) var(--spacing-8);
+  height: 80px; /* Consistent header height for layout stability */
+}
+
+/**
+ * BRAND LOGO STYLING:
+ * Logo serves dual purpose as brand identifier and home navigation link.
+ * Flexible sizing ensures brand visibility across all device sizes.
+ */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoImage {
+  height: 50px;
+  width: auto;
+  max-width: 200px; /* Prevents logo from overwhelming mobile layouts */
+}
+
+/**
+ * DESKTOP NAVIGATION STRATEGY:
+ * Horizontal layout optimized for desktop user patterns.
+ * Spacing and typography designed for optimal click targets and readability.
+ */
+.desktopNavigation {
+  display: flex;
+  gap: var(--spacing-6);
+}
+
+/**
+ * DESKTOP NAVIGATION LINKS:
+ * Interactive elements with hover states and active indicators.
+ * Underline animation provides premium feel and clear user feedback.
+ */
+.desktopNavigationLink {
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  position: relative;
+  padding: var(--spacing-2) 0;
+  transition: color 0.2s ease;
+}
+
+/**
+ * NAVIGATION LINK ANIMATION:
+ * Subtle underline animation enhances user experience without being distracting.
+ * Transform origin creates smooth left-to-right animation effect.
+ */
+.desktopNavigationLink::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--secondary);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.desktopNavigationLink:hover {
+  color: var(--foreground);
+}
+
+.desktopNavigationLink:hover::after,
+.desktopNavigationLink.active::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.desktopNavigationLink.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/**
+ * HAMBURGER MENU BUTTON:
+ * Three-line hamburger menu with smooth animation to X when active.
+ * Touch-optimized sizing (48px) meets accessibility guidelines.
+ * Hidden on desktop via media queries.
+ */
+.hamburgerMenuButton {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-2);
+  border-radius: var(--radius);
+  transition: background-color 0.2s ease;
+}
+
+.hamburgerMenuButton:hover {
+  background-color: var(--muted);
+}
+
+/**
+ * HAMBURGER ANIMATION LINES:
+ * Individual lines that transform into X shape when menu is active.
+ * Transform origin ensures smooth rotation animation.
+ */
+.hamburgerLine {
+  width: 24px;
+  height: 2px;
+  background-color: var(--foreground);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburgerLine:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+/**
+ * HAMBURGER TO X TRANSFORMATION:
+ * Smooth animation transforms hamburger lines into X shape.
+ * Middle line fades out while top and bottom lines rotate.
+ */
+.hamburgerMenuButton.open .hamburgerLine:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburgerMenuButton.open .hamburgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburgerMenuButton.open .hamburgerLine:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/**
+ * MOBILE NAVIGATION MENU:
+ * Collapsible menu with smooth height transition for premium feel.
+ * Hidden by default with max-height animation for smooth reveal.
+ */
+.mobileNavigationMenu {
+  display: none;
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.mobileNavigationMenuOpen {
+  max-height: 400px; /* Sufficient height for all navigation items */
+}
+
+/**
+ * MOBILE NAVIGATION LAYOUT:
+ * Vertical stack optimized for touch interaction.
+ * Generous padding ensures comfortable touch targets.
+ */
+.mobileNavigation {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-4) 0;
+}
+
+/**
+ * MOBILE NAVIGATION LINKS:
+ * Touch-optimized sizing with visual feedback for active states.
+ * Left border indicator provides clear active page identification.
+ */
+.mobileNavigationLink {
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  padding: var(--spacing-3) var(--spacing-8);
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.mobileNavigationLink:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+}
+
+.mobileNavigationLink.active {
+  color: var(--primary);
+  font-weight: 600;
+  border-left-color: var(--secondary);
+  background-color: var(--muted);
+}
+
+/**
+ * MOBILE MENU BACKDROP:
+ * Semi-transparent overlay provides visual focus on navigation.
+ * Fade-in animation enhances perceived performance.
+ */
+.mobileMenuBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: var(--z-overlay);
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/**
+ * MAIN CONTENT AREA:
+ * Flexible container ensures footer stays at bottom.
+ * Grows to fill available space regardless of content height.
+ */
+.main {
+  flex-grow: 1;
+}
+
+/**
+ * FOOTER ARCHITECTURE:
+ * Brand-consistent footer with essential business information.
+ * Contact details strategically placed for lead generation.
+ */
+.footer {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: var(--spacing-8) var(--spacing-8);
+}
+
+.footerContent {
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.875rem;
+  opacity: 0.8;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+/**
+ * RESPONSIVE BREAKPOINTS:
+ * Mobile-first approach with progressive enhancement for larger screens.
+ * 
+ * MOBILE BREAKPOINT (< 768px):
+ * - Hide desktop navigation
+ * - Show hamburger menu
+ * - Enable mobile navigation menu
+ * - Optimize touch interactions
+ */
+@media (max-width: 768px) {
+  .headerContent {
+    height: 80px;
+    padding: var(--spacing-4);
+  }
+
+  /* Hide desktop navigation on mobile - UX decision for clean mobile experience */
+  .desktopNavigation {
+    display: none;
+  }
+
+  /* Show hamburger menu on mobile - primary navigation method */
+  .hamburgerMenuButton {
+    display: flex;
+  }
+
+  /* Enable mobile menu functionality */
+  .mobileNavigationMenu {
+    display: block;
+  }
+}
+
+/**
+ * TABLET BREAKPOINT (768px - 1024px):
+ * Intermediate sizing for tablet devices.
+ * Maintains desktop navigation with adjusted spacing.
+ */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .desktopNavigation {
+    gap: var(--spacing-4);
+  }
+
+  .desktopNavigationLink {
+    font-size: 0.95rem;
+  }
+}

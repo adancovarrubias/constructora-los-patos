@@ -1,0 +1,97 @@
+/**
+ * DevelopmentContactForm Styles - Constructora Los Patos
+ * 
+ * FORM UX STRATEGY:
+ * - Optimized for Mexican real estate market user behavior
+ * - Mobile-first responsive design with desktop enhancement
+ * - Visual hierarchy guides users through conversion funnel
+ * - Accessibility compliance ensures inclusive user experience
+ * 
+ * CONVERSION OPTIMIZATION:
+ * - Form styling builds trust through professional appearance
+ * - Strategic spacing reduces cognitive load during completion
+ * - Clear visual feedback for validation states and submission progress
+ */
+
+/**
+ * FORM CONTAINER ARCHITECTURE:
+ * Card-style container creates visual separation from page content.
+ * Centered layout with max-width ensures optimal readability.
+ * Shadow and border provide depth and professional appearance.
+ */
+.formContainer {
+  max-width: 800px; /* Optimal width for form completion across devices */
+  margin: 0 auto;
+  background-color: var(--surface);
+  padding: var(--spacing-8);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+}
+
+/**
+ * FORM LAYOUT STRUCTURE:
+ * Vertical layout with consistent spacing creates logical flow.
+ * Gap spacing provides visual breathing room between form sections.
+ */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+/**
+ * RESPONSIVE GRID SYSTEM:
+ * CSS Grid provides optimal field arrangement across device sizes.
+ * 
+ * DESKTOP STRATEGY (> 640px):
+ * - Two-column layout maximizes screen real estate
+ * - Related fields (email/phone) grouped for logical completion
+ * 
+ * MOBILE STRATEGY (≤ 640px):
+ * - Single column prevents horizontal scrolling
+ * - Optimized for thumb navigation and mobile keyboards
+ */
+.responsiveFieldGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns on desktop */
+  gap: var(--spacing-6);
+}
+
+/**
+ * FULL-WIDTH FIELD STRATEGY:
+ * Certain fields (name, message) span full width for optimal UX:
+ * - Name field: Full width feels more natural for longer names
+ * - Message field: Provides comfortable typing area for detailed inquiries
+ */
+.fullWidthField {
+  grid-column: 1 / -1; /* Span all columns */
+}
+
+/**
+ * SUBMIT BUTTON OPTIMIZATION:
+ * Full-width button ensures easy access across all device sizes.
+ * Prominent styling encourages form completion and conversion.
+ */
+.submitButton {
+  width: 100%;
+}
+
+/**
+ * MOBILE RESPONSIVE BREAKPOINT:
+ * Optimized for devices ≤ 640px (primary user base in Mexican market).
+ * 
+ * MOBILE UX DECISIONS:
+ * - Single column grid prevents cramped field layouts
+ * - Reduced padding maintains content visibility on small screens
+ * - Touch-optimized spacing ensures comfortable interaction
+ */
+@media (max-width: 640px) {
+  .responsiveFieldGrid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
+  
+  .formContainer {
+    padding: var(--spacing-6); /* Reduced padding for mobile screens */
+  }
+}

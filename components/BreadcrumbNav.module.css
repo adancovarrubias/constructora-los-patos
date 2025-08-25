@@ -1,0 +1,41 @@
+/**
+ * BreadcrumbNav Styles
+ *
+ * This stylesheet defines the appearance of the breadcrumb navigation component.
+ * It ensures clear, accessible, and consistently styled path navigation.
+ */
+
+.breadcrumb {
+  padding: var(--spacing-4) var(--section-padding-horizontal);
+  font-size: 0.875rem;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.breadcrumb a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+  color: var(--foreground);
+}
+
+.breadcrumb span[aria-current='page'] {
+  color: var(--muted-foreground);
+  font-weight: 500;
+}
+
+.separator {
+  margin: 0 var(--spacing-2);
+  color: var(--muted-foreground);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .breadcrumb {
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+}
