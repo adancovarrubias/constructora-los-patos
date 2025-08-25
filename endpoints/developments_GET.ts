@@ -47,6 +47,58 @@ function parseGalleryImages(galleryImages: any): Array<{ url: string; alt: strin
 
 export async function handle(request: Request) {
   try {
+    // Temporary mock data while DB connection is being configured
+    const mockDevelopments = [
+      {
+        id: 1,
+        name: "Torres Colón",
+        slug: "torres-colon",
+        description: "Desarrollo residencial premium con amenidades de lujo",
+        location: "Colón, Panamá",
+        price: "Desde $180,000",
+        status: "En construcción",
+        galleryImages: [
+          { url: "/images/torres-colon-1.jpg", alt: "Vista exterior Torres Colón" },
+          { url: "/images/torres-colon-2.jpg", alt: "Lobby Torres Colón" }
+        ],
+        models: []
+      },
+      {
+        id: 2,
+        name: "Ecoterra Paraíso",
+        slug: "ecoterra-paraiso",
+        description: "Vivir en armonía con la naturaleza",
+        location: "Paraíso, Panamá",
+        price: "Desde $120,000",
+        status: "Disponible",
+        galleryImages: [
+          { url: "/images/ecoterra-1.jpg", alt: "Vista Ecoterra Paraíso" },
+          { url: "/images/ecoterra-2.jpg", alt: "Áreas verdes Ecoterra" }
+        ],
+        models: []
+      },
+      {
+        id: 3,
+        name: "Las Ceibas Manzanillo",
+        slug: "las-ceibas-manzanillo",
+        description: "Exclusivo proyecto frente al mar",
+        location: "Manzanillo, Colón",
+        price: "Desde $95,000",
+        status: "Pre-venta",
+        galleryImages: [
+          { url: "/images/ceibas-1.jpg", alt: "Vista al mar Las Ceibas" },
+          { url: "/images/ceibas-2.jpg", alt: "Playa Las Ceibas" }
+        ],
+        models: []
+      }
+    ];
+
+    return new Response(superjson.stringify(mockDevelopments), {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    // Original DB code (commented out temporarily)
+    /*
     const developments = await db.selectFrom("developments").selectAll().execute();
     const models = await db.selectFrom("developmentModels").selectAll().execute();
 
@@ -71,6 +123,7 @@ export async function handle(request: Request) {
     return new Response(superjson.stringify(developmentsWithModels), {
       headers: { "Content-Type": "application/json" },
     });
+    */
   } catch (error) {
     console.error("Error fetching developments:", error);
     const errorMessage =

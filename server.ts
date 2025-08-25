@@ -5,7 +5,7 @@ import { serve } from '@hono/node-server';
 
 const app = new Hono();
 
-app.post('_api/contact',async c => {
+app.post('/_api/contact',async c => {
   try {
     const { handle } = await import("./endpoints/contact_POST.js");
     let request = c.req.raw;
@@ -19,7 +19,7 @@ app.post('_api/contact',async c => {
     return c.text("Error loading endpoint code " + e.message,  500)
   }
 })
-app.get('_api/developments',async c => {
+app.get('/_api/developments',async c => {
   try {
     const { handle } = await import("./endpoints/developments_GET.js");
     let request = c.req.raw;
