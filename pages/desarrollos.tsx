@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
 import { useDevelopments } from "../helpers/useDevelopments";
 import { HeroSection } from "../components/HeroSection";
 import { ContentSection } from "../components/ContentSection";

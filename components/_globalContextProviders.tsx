@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HelmetProvider } from "react-helmet-async";
 import { TooltipProvider } from "./Tooltip";
 import { SonnerToaster } from "./SonnerToaster";
 import { ScrollToHashElement } from "./ScrollToHashElement";
@@ -20,13 +19,11 @@ export const GlobalContextProviders = ({
 }) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <HelmetProvider>
-        <ScrollToHashElement />
-        <TooltipProvider>
-          {children}
-          <SonnerToaster />
-        </TooltipProvider>
-      </HelmetProvider>
+      <ScrollToHashElement />
+      <TooltipProvider>
+        {children}
+        <SonnerToaster />
+      </TooltipProvider>
     </QueryClientProvider>
   );
 };

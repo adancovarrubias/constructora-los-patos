@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
 import { useDevelopmentByName } from "../helpers/useDevelopmentByName";
 import { DevelopmentContactForm } from "../components/DevelopmentContactForm";
 import { DevelopmentPageSkeleton } from "../components/DevelopmentPageSkeleton";
