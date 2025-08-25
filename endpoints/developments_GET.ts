@@ -46,9 +46,17 @@ function parseGalleryImages(galleryImages: any): Array<{ url: string; alt: strin
 }
 
 export async function handle(request: Request) {
+  console.log('🔍 API developments_GET called');
+  console.log('🔍 Database URL configured:', !!process.env.FLOOT_DATABASE_URL);
+  
   try {
+    console.log('📊 Fetching developments from database...');
     const developments = await db.selectFrom("developments").selectAll().execute();
+    console.log('📊 Developments found:', developments.length);
+    
+    console.log('📊 Fetching models from database...');
     const models = await db.selectFrom("developmentModels").selectAll().execute();
+    console.log('📊 Models found:', models.length);
 
     const modelsByDevelopmentId = models.reduce((acc, model) => {
       if (model.developmentId) {
@@ -68,11 +76,13 @@ export async function handle(request: Request) {
       })
     );
 
+    console.log('✅ Successfully returning developments with models');
     return new Response(superjson.stringify(developmentsWithModels), {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error("Error fetching developments:", error);
+    console.error("❌ Error fetching developments:", error);
+    console.error("❌ Error details:", error instanceof Error ? error.stack : error);
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
     return new Response(superjson.stringify({ error: errorMessage }), {

@@ -20,16 +20,19 @@ app.post('/_api/contact',async c => {
   }
 })
 app.get('/_api/developments',async c => {
+  console.log('🔍 Server: /_api/developments endpoint called');
   try {
     const { handle } = await import("./endpoints/developments_GET.js");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
+      console.error('❌ Invalid response format:', response.constructor.name);
       return c.text("Invalid response format. handle should always return a Response object." + response.constructor.name, 500);
     }
+    console.log('✅ Server: developments endpoint completed successfully');
     return response;
   } catch (e) {
-    console.error(e);
+    console.error('❌ Server error in developments endpoint:', e);
     return c.text("Error loading endpoint code " + e.message,  500)
   }
 })
