@@ -1,0 +1,96 @@
+.pageContainer {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.sectionText {
+  font-size: 1.125rem;
+  line-height: var(--line-height-relaxed);
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Model Section */
+.modelContainer {
+  margin: 0 auto;
+}
+
+/* Community Services Section */
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-8);
+  margin-top: var(--spacing-8);
+}
+
+.serviceItem {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.serviceIconWrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--secondary) 15%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.serviceIcon {
+  color: var(--secondary);
+}
+
+.serviceItem:hover .serviceIconWrapper {
+  transform: translateY(-5px);
+  background-color: color-mix(in srgb, var(--secondary) 25%, transparent);
+}
+
+.serviceTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* Premium Gallery Section */
+.premiumGallery {
+  margin-top: var(--spacing-4);
+}
+
+/* CTA & Contact Section */
+.cta {
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
+.ctaText {
+  font-size: 1.25rem;
+  color: var(--muted-foreground);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Error State */
+.errorState {
+  text-align: center;
+  padding: var(--spacing-8);
+}
+
+.errorState h2 {
+  font-family: var(--font-family-heading);
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-4);
+  color: var(--foreground);
+}
+
+.errorState p {
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-6);
+}

@@ -1,0 +1,300 @@
+/* Main card container - two-column layout for desktop, stacked for mobile */
+.card {
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Equal width image and content sections */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  container-type: inline-size;
+}
+
+/* Hover effect - subtle lift to indicate interactivity */
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px); /* Gentle upward movement */
+}
+
+/* Image section container - maintains aspect ratio and houses navigation */
+.imageContainer {
+  position: relative;
+  min-height: 240px; /* Further reduced by 20% for optimal card proportions */
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Location badge overlay - provides immediate geographic context */
+.location {
+  position: absolute;
+  top: var(--spacing-4);
+  left: var(--spacing-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent for readability */
+  color: white;
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  backdrop-filter: blur(4px); /* Modern glass effect */
+  z-index: var(--z-content);
+}
+
+/* Image navigation buttons - positioned for easy thumb access */
+.navButton {
+  position: absolute;
+  top: 50%; /* Vertically centered for optimal visibility */
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  backdrop-filter: blur(4px); /* Maintains readability over various backgrounds */
+  z-index: var(--z-content);
+}
+
+.navButton:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.navButtonPrev {
+  left: var(--spacing-4);
+}
+
+.navButtonNext {
+  right: var(--spacing-4);
+}
+
+.imageIndicators {
+  position: absolute;
+  bottom: var(--spacing-4);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--spacing-2);
+  z-index: var(--z-content);
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.indicatorActive {
+  background-color: var(--secondary);
+}
+
+/* Thumbnail navigation - provides visual preview of available images */
+.thumbnailContainer {
+  position: absolute;
+  bottom: var(--spacing-6);
+  right: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  z-index: var(--z-content);
+}
+
+/* Individual thumbnail buttons - mini previews for quick navigation */
+.thumbnail {
+  width: 60px;
+  height: 40px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  background: none;
+  padding: 0;
+}
+
+.thumbnail:hover {
+  transform: scale(1.05);
+}
+
+.thumbnailActive {
+  border-color: var(--secondary);
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.content {
+  padding: var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-family: var(--font-family-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.tagline {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-6);
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--foreground);
+  margin-bottom: var(--spacing-6);
+  flex-grow: 1;
+}
+
+.sectionTitle {
+  font-family: var(--font-family-heading);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: var(--spacing-3);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--spacing-2);
+}
+
+.amenities {
+  margin-bottom: var(--spacing-6);
+}
+
+.badgeContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.models {
+  margin-bottom: var(--spacing-8);
+}
+
+.model {
+  padding: var(--spacing-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.model:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.modelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--spacing-2);
+}
+
+.modelName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.modelPrice {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--secondary);
+}
+
+.modelDetails {
+  display: flex;
+  gap: var(--spacing-4);
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.modelDetails span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.ctaButton {
+  margin-top: auto;
+  width: 100%;
+}
+
+/* Container query - switch to single column layout when card is narrow */
+@container (max-width: 480px) {
+  .card {
+    grid-template-columns: 1fr; /* Stack image above content */
+  }
+  
+  /* Reposition thumbnails horizontally for better mobile UX */
+  .thumbnailContainer {
+    bottom: var(--spacing-4);
+    right: var(--spacing-4);
+    flex-direction: row; /* Horizontal layout works better on mobile */
+  }
+  
+  .thumbnail {
+    width: 50px;
+    height: 32px;
+  }
+}
+
+/* Mobile optimization - adjusted spacing and sizing for smaller screens */
+@media (max-width: 768px) {
+  .content {
+    padding: var(--spacing-6); /* Reduced padding for mobile */
+  }
+  
+  .name {
+    font-size: 1.75rem; /* Smaller heading for mobile readability */
+  }
+  
+  .tagline {
+    font-size: 1rem;
+  }
+  
+  /* Smaller navigation buttons for mobile touch targets */
+  .navButton {
+    width: 36px;
+    height: 36px;
+  }
+  
+  /* Move thumbnails below image on mobile for better accessibility */
+  .thumbnailContainer {
+    position: static; /* Remove absolute positioning */
+    margin-top: var(--spacing-4);
+    justify-content: center; /* Center thumbnails */
+  }
+  
+  .thumbnail {
+    width: 45px;
+    height: 28px;
+  }
+}

@@ -1,0 +1,86 @@
+import React from "react";
+import { Selectable } from "kysely";
+import { DevelopmentModels } from "../helpers/schema";
+import { BedDouble, Bath, Square, Car, Shirt, Utensils, Sofa, Sparkles, Crown } from "lucide-react";
+import styles from "./YarosModelShowcase.module.css";
+
+interface YarosModelShowcaseProps {
+  model: Selectable<DevelopmentModels>;
+}
+
+const formatCurrency = (value: number | string | null | undefined) => {
+  if (value === null || value === undefined) return "N/A";
+  const num = typeof value === "string" ? parseFloat(value) : value;
+  return new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(num);
+};
+
+export const YarosModelShowcase: React.FC<YarosModelShowcaseProps> = ({ model }) => {
+  const yarosFeatures = [
+    { icon: BedDouble, text: "3 recámaras con closet" },
+    { icon: Bath, text: "2 baños completos" },
+    { icon: Utensils, text: "Cocina integral con barra" },
+    { icon: Sofa, text: "Sala - comedor" },
+    { icon: Shirt, text: "Cuarto de lavado" },
+    { icon: Car, text: "2 Estacionamientos" },
+  ];
+
+  return (
+    <div className={styles.showcase}>
+      <div className={styles.modelInfo}>
+        <div className={styles.header}>
+          <h3 className={styles.name}>{model.name}</h3>
+          <div className={styles.priceArea}>
+            <p className={styles.price}>Desde {formatCurrency(model.price)}</p>
+            <div className={styles.area}>
+              <Square size={18} /> 78.21 m²
+            </div>
+          </div>
+        </div>
+        
+        <div className={styles.premiumBadge}>
+          <Crown size={16} />
+          <span>MODELO PREMIUM</span>
+        </div>
+
+        <div className={styles.sunRoofBadge}>
+          <Sparkles size={16} />
+          <span>Con opción a SUN ROOF</span>
+        </div>
+
+        <div className={styles.upgradeHighlights}>
+          <div className={styles.upgradeHighlight}>
+            <BedDouble size={16} />
+            <span>¡3 recámaras! Más espacio</span>
+          </div>
+          <div className={styles.upgradeHighlight}>
+            <Car size={16} />
+            <span>2 estacionamientos</span>
+          </div>
+        </div>
+
+        <div className={styles.features}>
+          {yarosFeatures.map((feature, index) => (
+            <div key={index} className={styles.feature}>
+              <feature.icon size={18} />
+              <span>{feature.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <div className={styles.floorPlan}>
+        <img
+          src="https://assets.floot.app/db2f7462-5369-478c-a930-83c9e7fb716f/7abcdb2c-87a0-488e-9559-15d238997111.gif"
+          alt="Plano del modelo Yaros - Las Ceibas Manzanillo"
+          className={styles.floorPlanImage}
+        />
+        <p className={styles.floorPlanCaption}>Plano arquitectónico del modelo Yaros</p>
+      </div>
+    </div>
+  );
+};

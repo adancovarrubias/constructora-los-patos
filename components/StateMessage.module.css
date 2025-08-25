@@ -1,0 +1,91 @@
+/**
+ * StateMessage Component Styles
+ * 
+ * Provides consistent styling for various application states like
+ * error, empty, and loading messages.
+ */
+
+.container {
+  text-align: center;
+  padding: var(--spacing-16) var(--spacing-8);
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  max-width: 600px;
+  margin: 0 auto;
+  border-left: 4px solid;
+}
+
+.iconWrapper {
+  margin-bottom: var(--spacing-6);
+}
+
+.icon {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-family-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 var(--spacing-2);
+}
+
+.message {
+  color: var(--muted-foreground);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+/* State Variants */
+.error {
+  border-color: var(--error);
+}
+
+.error .icon {
+  color: var(--error);
+}
+
+.empty {
+  border-color: var(--muted);
+}
+
+.empty .icon {
+  color: var(--muted-foreground);
+}
+
+.loading {
+  border-color: var(--info);
+}
+
+.loading .icon {
+  color: var(--info);
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-12) var(--spacing-6);
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .message {
+    font-size: 0.95rem;
+  }
+}

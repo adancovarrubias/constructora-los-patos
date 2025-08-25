@@ -1,0 +1,101 @@
+/**
+ * Homepage Styles
+ * 
+ * Styles specific to the homepage, using reusable components
+ * and maintaining consistency with the design system.
+ */
+
+/* Hero Section Customizations */
+.homeHero {
+  /* Additional hero customizations if needed */
+}
+
+/* Values Grid Layout */
+.homeValuesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-8);
+  margin-bottom: var(--spacing-8);
+}
+
+.homeValueCard {
+  background-color: var(--background);
+  padding: var(--spacing-8);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: var(--transition-hover);
+}
+
+.homeValueCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.homeValueIcon {
+  width: 48px;
+  height: 48px;
+  color: var(--secondary);
+  margin: 0 auto var(--spacing-4);
+}
+
+.homeValueTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-card-title);
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: var(--spacing-2);
+}
+
+.homeValueText {
+  font-size: 1rem;
+  line-height: var(--line-height-relaxed);
+  color: var(--muted-foreground);
+}
+
+/* CTA Button Container */
+.homeHeroCtaContainer {
+  text-align: center;
+  margin-top: var(--spacing-4);
+}
+
+.homeHeroCta {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  box-shadow: var(--shadow-lg);
+}
+
+.homeHeroCta:hover {
+  background-color: var(--accent);
+}
+
+/* CTA Section Styling */
+.homeCtaSection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.homeCtaContainer {
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .homeValuesGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+  }
+
+  .homeValueCard {
+    padding: var(--spacing-6);
+  }
+
+  .homeValueIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .homeValueTitle {
+    font-size: 1.25rem;
+  }
+}
