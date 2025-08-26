@@ -6,10 +6,10 @@
     }
   ],
   "functions": {
-    "api/developments.js": {
+    "api/developments.ts": {
       "runtime": "nodejs18.x"
     },
-    "api/contact.js": {
+    "api/contact.ts": {
       "runtime": "nodejs18.x"
     }
   }
