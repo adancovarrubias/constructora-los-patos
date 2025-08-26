@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/_api/(.*)",
+      "destination": "/api/$1"
+    }
+  ],
+  "functions": {
+    "api/developments.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/contact.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}
