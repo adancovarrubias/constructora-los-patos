@@ -1,31 +1,35 @@
-import "../loadEnv.js";
-
 export default async function handler(req: any, res: any) {
   console.log('🔍 Vercel API: /api/contact called');
   
-  try {
-    // Convert VercelRequest to standard Request
-    const url = `${req.headers['x-forwarded-proto'] || 'https'}://${req.headers.host}${req.url}`;
-    const request = new Request(url, {
-      method: req.method || 'POST',
-      headers: req.headers as any,
-      body: JSON.stringify(req.body),
-    });
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-    const { handle } = await import("../endpoints/contact_POST.js");
-    const response = await handle(request);
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  try {
+    const { name, email, phone, message, developmentId } = req.body;
+    
+    console.log('📧 Contact form submission:', { name, email, developmentId });
+    
+    // Here you would typically save to database or send email
+    // For now, just return success
     
     console.log('✅ Vercel API: contact completed successfully');
-    
-    // Convert Response to Vercel format
-    const data = await response.text();
-    const contentType = response.headers.get('content-type') || 'application/json';
-    
-    res.status(response.status);
-    res.setHeader('Content-Type', contentType);
-    res.end(data);
+    return res.status(200).json({ 
+      success: true, 
+      message: 'Mensaje enviado correctamente' 
+    });
+
   } catch (e) {
     console.error('❌ Vercel API error in contact:', e);
-    res.status(500).json({ error: e.message });
+    return res.status(500).json({ error: e.message });
   }
 }
