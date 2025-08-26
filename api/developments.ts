@@ -1,5 +1,5 @@
-const { Kysely, PostgresDialect, CamelCasePlugin } = require('kysely');
-const { Pool } = require('pg');
+import { Kysely, PostgresDialect, CamelCasePlugin } from 'kysely';
+import { Pool } from 'pg';
 
 interface Database {
   developments: {
@@ -25,7 +25,7 @@ interface Database {
   };
 }
 
-module.exports = async function handler(req: any, res: any) {
+export default async function handler(req: any, res: any) {
   console.log('🔍 Vercel API: /api/developments called');
   
   // Set CORS headers
