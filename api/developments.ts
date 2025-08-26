@@ -84,15 +84,29 @@ export default async function handler(req: any, res: any) {
     console.log('✅ Sample development with all fields:', developments[0]);
 
     // Transform the data to match frontend expectations
-    const transformedDevelopments = developments.map(dev => ({
-      ...dev,
-      imageUrl: dev.image_url, // Convert snake_case to camelCase
-      startingPrice: dev.starting_price,
-      galleryImages: dev.gallery_images ? JSON.parse(dev.gallery_images) : [],
-      models: [] // We'll add models in a separate query if needed
-    }));
+    const transformedDevelopments = developments.map(dev => {
+      let galleryImages = [];
+      try {
+        if (dev.gallery_images && typeof dev.gallery_images === 'string') {
+          galleryImages = JSON.parse(dev.gallery_images);
+        } else if (Array.isArray(dev.gallery_images)) {
+          galleryImages = dev.gallery_images;
+        }
+      } catch (e) {
+        console.log('⚠️ Failed to parse gallery_images for', dev.name, ':', e.message);
+        galleryImages = [];
+      }
 
-    console.log('✅ Transformed developments sample:', transformedDevelopments[0]);
+      return {
+        ...dev,
+        imageUrl: dev.image_url, // Convert snake_case to camelCase
+        startingPrice: dev.starting_price,
+        galleryImages: galleryImages,
+        models: [] // We'll add models in a separate query if needed
+      };
+    });
+
+    console.log('✅ Transformed developments sample:', JSON.stringify(transformedDevelopments[0], null, 2));
 
     return res.status(200).json(transformedDevelopments);
 
