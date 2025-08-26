@@ -83,6 +83,14 @@ export default async function handler(req: any, res: any) {
     console.log('✅ Found developments:', developments.length);
     console.log('✅ Sample development with all fields:', developments[0]);
 
+    // Get models for each development
+    const modelsResults = await simpleDb
+      .selectFrom('development_models')
+      .selectAll()
+      .execute();
+
+    console.log('🏠 Found models:', modelsResults.length);
+
     // Transform the data to match frontend expectations
     const transformedDevelopments = developments.map(dev => {
       let galleryImages = [];
@@ -97,12 +105,15 @@ export default async function handler(req: any, res: any) {
         galleryImages = [];
       }
 
+      // Get models for this development
+      const developmentModels = modelsResults.filter(model => model.development_id === dev.id);
+
       return {
         ...dev,
         imageUrl: dev.image_url, // Convert snake_case to camelCase
         startingPrice: dev.starting_price,
         galleryImages: galleryImages,
-        models: [] // We'll add models in a separate query if needed
+        models: developmentModels
       };
     });
 
