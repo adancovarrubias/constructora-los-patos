@@ -7,20 +7,20 @@ interface Database {
     name: string;
     description: string;
     location: string;
-    imageUrl: string;
+    image_url: string;
     status: string;
-    deliveryDate: string;
-    startingPrice: string;
+    delivery_date: string;
+    starting_price: string;
   };
   models: {
     id: number;
-    developmentId: number;
+    development_id: number;
     name: string;
     bedrooms: number;
     bathrooms: number;
     area: string;
     price: string;
-    imageUrl: string;
+    image_url: string;
     features: string[];
   };
 }
@@ -40,12 +40,14 @@ export default async function handler(req: any, res: any) {
   try {
     const databaseUrl = process.env.FLOOT_DATABASE_URL;
     console.log('🔍 Database URL exists:', !!databaseUrl);
+    console.log('🔍 Database URL preview:', databaseUrl?.substring(0, 50) + '...');
 
     if (!databaseUrl) {
       console.error('❌ FLOOT_DATABASE_URL is not set');
       return res.status(500).json({ error: 'Database configuration missing' });
     }
 
+    console.log('🔍 Creating database connection...');
     const db = new Kysely<Database>({
       dialect: new PostgresDialect({
         pool: new Pool({ connectionString: databaseUrl }),
@@ -53,33 +55,32 @@ export default async function handler(req: any, res: any) {
       plugins: [new CamelCasePlugin()],
     });
 
-    console.log('🔍 Executing database query...');
+    console.log('🔍 Testing simple query first...');
     
-    const developments = await db
+    // First try a simple query without CamelCase plugin
+    const simpleDb = new Kysely<Database>({
+      dialect: new PostgresDialect({
+        pool: new Pool({ connectionString: databaseUrl }),
+      }),
+    });
+
+    const developments = await simpleDb
       .selectFrom('developments')
-      .selectAll()
+      .select(['id', 'name', 'description', 'location'])
       .execute();
 
     console.log('✅ Found developments:', developments.length);
+    console.log('✅ First development:', developments[0]);
 
-    // Get models for each development
-    const developmentsWithModels = await Promise.all(
-      developments.map(async (dev) => {
-        const models = await db
-          .selectFrom('models')
-          .selectAll()
-          .where('developmentId', '=', dev.id)
-          .execute();
+    return res.status(200).json(developments);
 
-        return { ...dev, models };
-      })
-    );
-
-    console.log('✅ Vercel API: developments completed successfully');
-    return res.status(200).json(developmentsWithModels);
-
-  } catch (e) {
+  } catch (e: any) {
     console.error('❌ Vercel API error in developments:', e);
-    return res.status(500).json({ error: e.message });
+    console.error('❌ Error stack:', e.stack);
+    return res.status(500).json({ 
+      error: e.message,
+      type: e.constructor.name,
+      stack: e.stack?.split('\n')[0]
+    });
   }
 }
