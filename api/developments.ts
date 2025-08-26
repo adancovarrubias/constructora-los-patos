@@ -64,24 +64,37 @@ export default async function handler(req: any, res: any) {
       }),
     });
 
-    // First, let's see what columns actually exist
-    const result = await simpleDb.selectFrom('developments').selectAll().limit(1).execute();
-    console.log('🔍 Available columns and sample data:', result[0]);
-
+    // Query with the correct column names from schema.tsx
     const developments = await simpleDb
       .selectFrom('developments')
       .select([
         'id', 
         'name', 
         'description', 
-        'location'
+        'location',
+        'image_url',    // This should exist according to schema
+        'tagline',      // This should exist according to schema  
+        'starting_price', // This should exist according to schema
+        'gallery_images', // This should exist according to schema
+        'features'      // This should exist according to schema
       ])
       .execute();
 
     console.log('✅ Found developments:', developments.length);
-    console.log('✅ Sample development:', developments[0]);
+    console.log('✅ Sample development with all fields:', developments[0]);
 
-    return res.status(200).json(developments);
+    // Transform the data to match frontend expectations
+    const transformedDevelopments = developments.map(dev => ({
+      ...dev,
+      imageUrl: dev.image_url, // Convert snake_case to camelCase
+      startingPrice: dev.starting_price,
+      galleryImages: dev.gallery_images ? JSON.parse(dev.gallery_images) : [],
+      models: [] // We'll add models in a separate query if needed
+    }));
+
+    console.log('✅ Transformed developments sample:', transformedDevelopments[0]);
+
+    return res.status(200).json(transformedDevelopments);
 
   } catch (e: any) {
     console.error('❌ Vercel API error in developments:', e);
