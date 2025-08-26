@@ -64,34 +64,24 @@ export default async function handler(req: any, res: any) {
       }),
     });
 
+    // First, let's see what columns actually exist
+    const result = await simpleDb.selectFrom('developments').selectAll().limit(1).execute();
+    console.log('🔍 Available columns and sample data:', result[0]);
+
     const developments = await simpleDb
       .selectFrom('developments')
       .select([
         'id', 
         'name', 
         'description', 
-        'location',
-        'image_url',
-        'status',
-        'delivery_date',
-        'starting_price',
-        'gallery_images'
+        'location'
       ])
       .execute();
 
     console.log('✅ Found developments:', developments.length);
-    console.log('✅ First development with images:', developments[0]);
+    console.log('✅ Sample development:', developments[0]);
 
-    // Transform the data to match frontend expectations
-    const transformedDevelopments = developments.map(dev => ({
-      ...dev,
-      galleryImages: dev.gallery_images ? JSON.parse(dev.gallery_images) : [],
-      models: [] // We'll add models in a separate query if needed
-    }));
-
-    console.log('✅ Transformed developments:', transformedDevelopments);
-
-    return res.status(200).json(transformedDevelopments);
+    return res.status(200).json(developments);
 
   } catch (e: any) {
     console.error('❌ Vercel API error in developments:', e);
