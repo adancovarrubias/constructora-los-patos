@@ -1,4 +1,4 @@
-export default async function handler(req: any, res: any) {
+module.exports = async function handler(req: any, res: any) {
   console.log('🔍 Vercel API: /api/contact called');
   
   // Set CORS headers
