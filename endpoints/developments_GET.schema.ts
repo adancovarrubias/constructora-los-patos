@@ -28,9 +28,41 @@ export const getDevelopments = async (
   });
 
   if (!result.ok) {
-    const errorObject = superjson.parse(await result.text());
-        throw new Error((errorObject as any)?.error || 'Unknown error');
+    const errorText = await result.text();
+    let errorMessage = 'Unknown error';
+    
+    try {
+      // Try to parse as superjson first (for old endpoint compatibility)
+      const errorObject = superjson.parse(errorText);
+      errorMessage = (errorObject as any)?.error || errorMessage;
+    } catch {
+      // If superjson fails, try regular JSON
+      try {
+        const errorObject = JSON.parse(errorText);
+        errorMessage = errorObject?.error || errorMessage;
+      } catch {
+        // If both fail, use the text as is
+        errorMessage = errorText || errorMessage;
+      }
+    }
+    
+    throw new Error(errorMessage);
   }
 
-  return superjson.parse<OutputType>(await result.text());
+  const responseText = await result.text();
+  
+  try {
+    // Try superjson first (for old endpoint compatibility)
+    return superjson.parse<OutputType>(responseText);
+  } catch {
+    // If superjson fails, try regular JSON parsing
+    const jsonData = JSON.parse(responseText);
+    
+    // Transform the simple API response to match expected format
+    return jsonData.map((dev: any) => ({
+      ...dev,
+      galleryImages: dev.galleryImages || [],
+      models: dev.models || []
+    }));
+  }
 };
