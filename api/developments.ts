@@ -48,7 +48,7 @@ module.exports = async function handler(req: any, res: any) {
     }
 
     console.log('🔍 Creating database connection...');
-    const db = new Kysely<Database>({
+    const db = new Kysely({
       dialect: new PostgresDialect({
         pool: new Pool({ connectionString: databaseUrl }),
       }),
@@ -58,7 +58,7 @@ module.exports = async function handler(req: any, res: any) {
     console.log('🔍 Testing simple query first...');
     
     // First try a simple query without CamelCase plugin
-    const simpleDb = new Kysely<Database>({
+    const simpleDb = new Kysely({
       dialect: new PostgresDialect({
         pool: new Pool({ connectionString: databaseUrl }),
       }),
